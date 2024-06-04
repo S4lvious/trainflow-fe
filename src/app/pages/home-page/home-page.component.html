@@ -1,0 +1,102 @@
+<div class="homepage-container">
+    <p-speedDial 
+    direction="down-right" 
+    type="quarter-circle" 
+    buttonClassName="p-button-success" />
+
+    <div class="left">
+        <tf-sidebar [profilePic]="user.profile_pic" [name]="user.username" (sideNavClosedVariable)="toggleVisibility()"></tf-sidebar>
+        
+    </div>
+    <div class="right">
+        <h2>
+            Benvenuto, {{user.username}}
+        </h2>
+        <h3>
+            Visualizza l'Allenamento di:
+        </h3>
+        <div class="view-container">
+            <tf-card *ngFor="let view of possibleViews" (click)="onCardClick(view)" [clicked]="view.clicked" [body]="view.label">
+            </tf-card>
+        </div>
+        <div class="grid mt-2">
+            <div class="flex flex-column gap-2 col-12">
+                <span>
+                    Oppure, seleziona una data:
+                </span>
+                <p-calendar [(ngModel)]="selectedDate" (ngModelChange)="onSelectDate($event)" [showIcon]="true" [dateFormat]="'dd-mm-yy'"></p-calendar>
+            </div>
+        </div>
+        <div class="exercises">
+            <p-dataView #dv [value]="exercises" emptyMessage="Non hai inserito ancora nessun esercizio per quella data...">
+                <ng-template pTemplate="list" let-exercises>
+                    <div class="grid grid-nogutter">
+                        <div class="col-12" *ngFor="let exercise of exercises; let first = first" class="col-12">
+                            <div class="flex flex-column sm:flex-row sm:align-items-center p-4 gap-3" [ngClass]="{ 'border-top-1 surface-border': !first }">
+                                <div class="flex flex-column md:flex-row justify-content-between md:align-items-center flex-1 gap-4">
+                                    <div class="flex flex-row md:flex-column justify-content-between align-items-start gap-2">
+                                        <div>
+                                            <span class="font-medium text-secondary text-sm">{{ exercise.type | uppercase }}</span>
+                                            <div class="text-lg font-medium text-900 mt-2">{{ exercise.name + ' ' + exercise.kg + 'KG' }}</div>
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-column md:align-items-end gap-5">
+                                        <span class="text-xl font-semibold text-900">{{exercise.sets + 'x' + exercise.reps }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </p-dataView>
+        </div>
+        <div class="floating-action-button">
+            <p-speedDial 
+            [direction]="'down-right'"
+            type="quarter-circle" 
+            buttonClassName="p-button-quite" 
+            (click)="onFloatClick()"/>
+        </div>
+
+        <p-dialog
+        [(visible)]="showDialog"
+        [modal]="true"
+        header="Aggiungi Nuovo Esercizio"
+        [style]="{width: '40vw', height: '65vh'}"
+        >
+        <div class="grid">
+            <div class="flex flex-column gap-2 col-12">
+                <label for="exercise">Seleziona Esercizio</label>
+                <p-dropdown
+                [options]="exercisesList"
+                id="exercise"
+                [(ngModel)]="selectedExercise"
+                optionLabel="name"
+                [filter]="true"
+                optionValue="id"
+                >
+                </p-dropdown>
+            </div>
+            <div class="flex flex-column gap-2 col-12">
+                <label for="sets">Numero di serie</label>
+                <p-inputNumber id="sets" [(ngModel)]="sets" placeholder="Numero di Serie"></p-inputNumber>
+            </div>
+            <div class="flex flex-column gap-2 col-12">
+                <label for="reps">Numero di ripetizioni</label>
+                <p-inputNumber id="reps" [(ngModel)]="reps" placeholder="Numero di Ripetizioni"></p-inputNumber>
+            </div>
+            <div class="flex flex-column gap-2 col-12">
+                <label for="kg">Peso</label>
+                <p-inputNumber id="kg" [(ngModel)]="kg" placeholder="KG"></p-inputNumber>
+            </div>
+            <div class="col-12 flex justify-content-end gap-2">
+                <p-button label="Aggiungi" (click)="addExercise()" [disabled]="!selectedExercise"/>
+            </div>
+        </div>
+        </p-dialog>
+        
+    </div>
+
+</div>
+
+

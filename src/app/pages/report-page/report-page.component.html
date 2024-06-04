@@ -1,0 +1,8 @@
+<div class="report-container">
+    <div class="left">
+        <tf-sidebar [profilePic]="user.profile_pic" [name]="user.username"></tf-sidebar>
+    </div>
+    <div class="right">
+        <p-chart type="line" [data]="chartData" [options]="chartOptions"/>
+    </div>
+</div>

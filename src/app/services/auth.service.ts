@@ -10,9 +10,9 @@ export class AuthService {
   constructor(private _http: HttpClient) {}
   private apiUrl = 'http://localhost:3000'; // Sostituisci con l'URL del tuo server di backend
   
-  public login(username: string, password: string) {
+  public login(user: any) {
     return this._http
-      .post(`${this.apiUrl}/auth/login`, { username, password })
+      .post(`${this.apiUrl}/auth/login`, user)
       .pipe(
         map((response: any) => {
           if (response && response.token) {
