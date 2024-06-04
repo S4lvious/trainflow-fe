@@ -31,3 +31,31 @@ export interface ReportResponse {
     }[]
 }
 
+export interface WorkoutProgramBody {
+    userId: number,
+    exercises: number[],
+}
+
+export interface WorkoutProgramForm {
+    exerciseId: number,
+    reps: number,
+    sets: number   
+}
+
+export interface CreateTrainingCardBody {
+    userId: number,
+    trainingCardName: string,
+    exercises: WorkoutProgramForm[]
+}
+
+export interface TrainingCardExercise {
+    id: number;
+    exercise_set: string;
+    exercise_rep: string;
+    training_card_id: number;
+    exercise_id: number;
+    name: string;
+    type: string;
+    difficulty: string;
+}
+

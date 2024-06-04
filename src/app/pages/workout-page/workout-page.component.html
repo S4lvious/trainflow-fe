@@ -1,0 +1,73 @@
+<div class="workout-container">
+    <div class="left">
+        <tf-sidebar [profilePic]="user.profile_pic" [name]="user.username"></tf-sidebar>
+    </div>
+    <div class="right" style="display: flex; justify-content: space-between; align-items: center;">
+        <div class="grid mt-2">
+            <div class="flex flex-column gap-2 col-12">
+                <h2>Seleziona una scheda o creane una</h2>
+            </div>
+            <div class="flex col-12 justify-content-between">
+                <p-dropdown autoWidth="false" [(ngModel)]="selectedCard" (onChange)="getTrainingCardExercises($event)" [style]="{width: '250px'}" [filter]="true" emptyMessage="Nessuna scheda creata" optionLabel="name" optionValue="value" [options]="possibleTrainingCard"></p-dropdown>
+                <div class="button">
+                    <button pButton type="button" (click)="showDialog = true" label="Crea Scheda" icon="pi pi-plus" class="p-button-quite"></button>
+                </div>
+            </div>
+        </div>
+
+
+        <p-dialog
+        [(visible)]="showDialog"
+        [modal]="true"
+        header="Crea Scheda"
+        [style]="{width: '60vw', height: '65vh'}"
+        >
+        <div class="grid">
+            <div class="flex flex-column gap-2 col-12">
+                <label for="name">Nome scheda</label>
+                <input type="text" pInputText id="name" placeholder="Nome scheda" [(ngModel)]="selectedName"/>
+            </div>
+            <div class="flex gap-4 col-12" *ngFor="let exercise of extendedExercises index as i">
+                <p-dropdown
+                [options]="exercises" 
+                optionLabel="name"
+                optionValue="id"
+                placeholder="Seleziona esercizi" 
+                [filter]="true"
+                autoWidth="false"
+                [style]="{width: '250px'}"
+                (onChange)="onSelectExercise($event)"
+                />
+                <p-inputNumber id="sets" (onInput)="onChangeSets($event, i)" placeholder="Numero di Serie"></p-inputNumber>
+                <p-inputNumber id="reps" (onInput)="onChangeReps($event, i)" placeholder="Numero di Ripetizioni"></p-inputNumber>
+            </div>
+            <div class="col-12 flex justify-content-end gap-2">
+                <p-button label="Aggiungi" (click)="createTrainingCard()" [disabled]="selectedExercises.length < 1 || !selectedName"></p-button>
+            </div>
+        </div>
+        </p-dialog>
+    </div>
+    <div class="exercises">
+        <p-dataView #dv *ngIf="trainingCard.length > 0" [value]="trainingCard" emptyMessage="Non hai inserito ancora nessun esercizio per quella data...">
+            <ng-template pTemplate="list" let-exercises>
+                <div class="grid grid-nogutter">
+                    <div class="col-12" *ngFor="let exercise of exercises; let first = first" class="col-12">
+                        <div class="flex flex-column sm:flex-row sm:align-items-center p-4 gap-3" [ngClass]="{ 'border-top-1 surface-border': !first }">
+                            <div class="flex flex-column md:flex-row justify-content-between md:align-items-center flex-1 gap-4">
+                                <div class="flex flex-row md:flex-column justify-content-between align-items-start gap-2">
+                                    <div>
+                                        <span class="font-medium text-secondary text-sm">{{ exercise.type | uppercase }}</span>
+                                        <div class="text-lg font-medium text-900 mt-2">{{ exercise.name + ' ' + valueOrDash(exercise.exercise_kg) + ' KG' }}</div>
+                                    </div>
+                                </div>
+                                <div class="flex flex-column md:align-items-end gap-5">
+                                    <span class="text-xl font-semibold text-900">{{exercise.exercise_set + 'x' + exercise.exercise_rep }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+        </p-dataView>
+    </div>
+</div>

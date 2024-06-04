@@ -98,7 +98,7 @@ export class HomePageComponent implements OnInit {
     addExercise() {
         const exercise: ExerciseForm = {
             id: this.selectedExercise,
-            date: this.possibleViews.find((tab) => tab.clicked)?.value as string,
+            date: this.selectedDate,
             userId: this.user.id,
             reps: this.reps as number,
             sets: this.sets as number,
