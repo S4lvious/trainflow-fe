@@ -1,0 +1,37 @@
+
+:host ::ng-deep {
+    .homepage-container {
+        padding: 40px;
+        .right {
+            margin-left: 20rem;
+            .view-container {
+                display: flex;
+                margin-top: 50px;
+                justify-content: space-between;
+                tf-card {
+                    cursor: pointer;
+                    
+                }
+                tf-card.clicked {
+                    background: aliceblue;
+                }
+            }
+    
+            .exercises {
+                margin-top: 50px;
+            }
+            .floating-action-button {
+                position: relative;
+                height: 200px;
+                .p-speeddial-quarter-circle {
+                    &.p-speeddial-direction-down-right {
+                        bottom: 0;
+                        right: 0;
+                    }
+                }
+            }
+        
+        }   
+    }
+
+}

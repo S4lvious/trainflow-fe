@@ -1,0 +1,155 @@
+<div class="homepage-container">
+    <p-speedDial 
+    direction="down-right" 
+    type="quarter-circle" 
+    buttonClassName="p-button-success" />
+
+    <div class="left">
+        <tf-sidebar [profilePic]="user.profile_pic" [name]="user.username"></tf-sidebar>
+        
+    </div>
+    <div class="right">
+        <h2>
+            Benvenuto, {{user.username}}
+        </h2>
+        <h3>
+            Diario Alimentare
+        </h3>
+        <div class="grid mt-2">
+            <div class="flex flex-column gap-2 col-6">
+                <span>
+                    Seleziona una data:
+                </span>
+                <p-calendar [(ngModel)]="selectedDate" (ngModelChange)="onSelectDate($event)" [showIcon]="true" [dateFormat]="'dd-mm-yy'"></p-calendar>
+            </div>
+            <div class="flex gap-2 col-6 justify-content-end align-items-center">
+                <div class="macro flex flex-column">
+                    <span>KCAL</span>
+                    <span class="text-lg font-semibold text-900">{{totalCalories + "kcal" }}</span>
+                </div>
+                <div class="macro flex flex-column">
+                    <span>P</span>
+                    <span class="text-lg font-semibold text-900">{{totalProteins + "g" }}</span>
+                </div>
+                <div class="macro flex flex-column">
+                    <span>C</span>
+                    <span class="text-lg font-semibold text-900">{{totalCarbs + "g" }}</span>
+                </div>
+                <div class="macro flex flex-column">
+                    <span>F</span>
+                    <span class="text-lg font-semibold text-900">{{totalFats + "g" }}</span>
+                </div>
+            </div>
+
+        </div>
+        <div class="exercises">
+            <p-dataView #dv [value]="foods" emptyMessage="Non hai inserito ancora nessun alimento per questa data...">
+                <ng-template pTemplate="list" let-exercises>
+                    <div class="grid grid-nogutter">
+                        <div class="col-12" *ngFor="let food of foods; let first = first" class="col-12">
+                            <div class="flex flex-column sm:flex-row sm:align-items-center p-4 gap-3" [ngClass]="{ 'border-top-1 surface-border': !first }">
+                                <div class="flex flex-column md:flex-row justify-content-between md:align-items-center flex-1 gap-4">
+                                    <div class="flex flex-row md:flex-column justify-content-between align-items-start gap-2">
+                                        <div>
+                                            <span class="font-medium text-secondary text-sm">{{ food.type | uppercase }}</span>
+                                            <div class="text-lg font-medium text-900 mt-2">{{ food.food_name + ' ' +food.food_qty + getQtyName(food.grams) }}</div>
+                                        </div>
+                                    </div>
+                                    <div class="flex md:align-items-end gap-5 align-items-center">
+                                        <div class="macro flex flex-column">
+                                            <span>KCAL</span>
+                                            <span class="text-lg font-semibold text-900">{{food.food_calories + "kcal" }}</span>    
+                                        </div>                                        <div class="macro flex flex-column">
+                                            <span>P</span>
+                                            <span class="text-lg font-semibold text-900">{{food.food_proteins + "g" }}</span>    
+                                        </div>
+                                        <div class="macro flex flex-column">
+                                            <span>C</span>
+                                            <span class="text-lg font-semibold text-900">{{food.food_carbs + "g" }}</span>    
+                                        </div>
+                                        <div class="macro flex flex-column">
+                                            <span>F</span>
+                                            <span class="text-lg font-semibold text-900">{{food.food_fats + "g" }}</span>    
+                                        </div>
+                                        <div class="flex flex-row gap-2">
+                                            <p-confirmDialog />
+                                            <p-button icon="pi pi-trash" size="small" severity="danger" (click)="deleteFood(food)"></p-button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </p-dataView>
+        </div>
+        <div class="floating-action-button">
+            <p-speedDial 
+            [direction]="'down-right'"
+            type="quarter-circle" 
+            buttonClassName="p-button-quite" 
+            (click)="onFloatClick()"/>
+        </div>
+
+        <p-dialog
+        [(visible)]="showDialog"
+        [modal]="true"
+        header="Aggiungi Nuovo Alimento"
+        [style]="{width: '40vw', height: '75vh'}"
+        >
+        <div class="grid">
+            <div class="flex flex-column gap-2 col-12">
+                <label for="exercise">Seleziona Alimento</label>
+                <p-autoComplete id="exercise" 
+                [suggestions]="filteredFoods" 
+                field="food_name"
+                (completeMethod)="filterFoods($event)" 
+                placeholder="Seleziona Alimento"
+                (onSelect)="onSelectFood($event)"
+                (onUnselect)="onUnselectFood()"
+                (onClear)="onUnselectFood()"
+                >
+                </p-autoComplete>
+            </div>
+            <div class="flex flex-column gap-2 col-12"  *ngIf="showServingType">
+                <label for="servingType">Tipo di Porzione</label>
+                <p-dropdown id="servingType" [options]="servingTypes" optionValue="value" optionLabel="name" placeholder="Seleziona Tipo" (onChange)="onSelectServingType()" [(ngModel)]="selectedServingType"></p-dropdown>
+            </div>
+            <div class="flex flex-column gap-2 col-12" *ngIf="selectedServingType == '100 g'">
+                <label for="grammi">Grammi</label>
+                <p-inputNumber id="grammi" placeholder="Grammi" (onInput)="calculateCalories()" [(ngModel)]="grams"></p-inputNumber>
+            </div>
+            <div class="flex gap-2 col-12" *ngIf="selectedServingType !== '100 g' && !(selectedServingType === '')">
+                <p-inputNumber id="qty" placeholder="Quantità" (onInput)="calculateCaloriesNotGrams()" [(ngModel)]="qty"></p-inputNumber>
+                <p>
+                    {{selectedServingType}}
+                </p>
+            </div>
+
+            <div class="flex flex-column gap-2 col-12">
+                <label for="calories">Calorie</label>
+                <p-inputNumber id="calories" placeholder="Calorie" [disabled]="true" [(ngModel)]="displayFoodCalories"></p-inputNumber>
+            </div>
+            <div class="flex flex-column gap-2 col-12">
+                <label for="proteins">Proteine</label>
+                <p-inputNumber id="proteins" placeholder="Proteine" [disabled]="true" [(ngModel)]="displayFoodProteins"></p-inputNumber>
+            </div>
+            <div class="flex flex-column gap-2 col-12">
+                <label for="carbs">Carboidrati</label>
+                <p-inputNumber id="carbs" placeholder="Carboidrati" [disabled]="true" [(ngModel)]="displayFoodCarbs"></p-inputNumber>
+            </div>
+            <div class="flex flex-column gap-2 col-12">
+                <label for="fats">Grassi</label>
+                <p-inputNumber id="fats" placeholder="Grassi" [disabled]="true" [(ngModel)]="displayFoodFats"></p-inputNumber>
+            </div>
+            <div class="col-12 flex justify-content-end gap-2">
+                <p-button label="Aggiungi" (click)="addFood()" [disabled]="!selectedFood || !selectedServingType || !qty || !grams"/>
+            </div>
+        </div>
+        </p-dialog>
+        
+    </div>
+
+</div>
+
+

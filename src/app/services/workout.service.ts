@@ -48,5 +48,9 @@ export class WorkoutService {
         return this.http.get<TrainingCardExercise[]>(this.apiUrl + `/getTrainingCardExercises/${trainingCardId}`);
     }
 
+    public deleteExercise(exerciseId: number) {
+        return this.http.delete(this.apiUrl + `/deleteExercise/${exerciseId}`);
+    }
+
 
 }

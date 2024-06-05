@@ -18,6 +18,8 @@ import { FormsModule } from '@angular/forms';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { CalendarModule } from 'primeng/calendar';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 
 @Component({
@@ -25,7 +27,8 @@ import { CalendarModule } from 'primeng/calendar';
     templateUrl: './home-page.component.html',
     styleUrls: ['./home-page.component.scss'],
     standalone: true,
-    imports: [SidebarComponent, ButtonModule, CardModule, CommonModule, TFCardComponent, DataViewModule, SpeedDialModule, DialogModule, DropdownModule, FormsModule, InputNumberModule, FloatLabelModule, CalendarModule]
+    imports: [SidebarComponent, ButtonModule, CardModule, CommonModule, TFCardComponent, DataViewModule, SpeedDialModule, DialogModule, DropdownModule, FormsModule, InputNumberModule, FloatLabelModule, CalendarModule, ConfirmDialogModule],
+    providers: [ConfirmationService, MessageService]
 })
 export class HomePageComponent implements OnInit {
 
@@ -47,7 +50,8 @@ export class HomePageComponent implements OnInit {
 
     constructor(
         private userService: UserService,
-        private workoutService: WorkoutService
+        private workoutService: WorkoutService,
+        private confirmationService: ConfirmationService
     ) { 
     }
 
@@ -59,6 +63,8 @@ export class HomePageComponent implements OnInit {
          });
 
     }
+
+    
 
     toggleVisibility() {
         this.sidebarVisible = true;
@@ -107,6 +113,28 @@ export class HomePageComponent implements OnInit {
         this.workoutService.addExercise(exercise).subscribe(() => {
             this.getExercisesByDate(this.selectedDate, this.user.id);
             this.showDialog = false;
+        });
+    }
+
+    deleteExercise(exercise: Exercise) {
+        this.confirmationService.confirm({
+            message: 'Sicuro di voler eliminare questo esercizio?',
+            header: 'Elimina esercizio',
+            icon: 'pi pi-exclamation-triangle',
+            acceptLabel:"Si",
+            rejectLabel:"No",
+            acceptIcon:"none",
+            rejectIcon:"none",
+            rejectButtonStyleClass:"p-button-text",
+            accept: () => {
+                this.workoutService.deleteExercise(exercise.id).subscribe(() => {
+                    this.getExercisesByDate(this.selectedDate, this.user.id)
+                });
+    
+            },
+            reject: () => {
+    
+            }
         });
     }
 

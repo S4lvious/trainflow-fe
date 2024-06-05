@@ -51,13 +51,18 @@ export class WorkoutPageComponent {
   }
 
 
-
   onSelectExercise(event: any) {
-    this.selectedExercises.push({ exerciseId: event.value, reps: 0, sets: 0 });
-    this.extendedExercises = new Array(this.selectedExercises.length + 1).fill(null);
-    console.log(this.selectedExercises);
-    
-  }
+    // Verifica se event.value non è uguale a 0 e se è definito
+    if (event.value !== 0 && event.value) {
+        // Calcola la differenza tra la lunghezza di extendedExercises e selectedExercises
+        const difference = this.extendedExercises.length - this.selectedExercises.length;
+        // Entra nella condizione solo se la differenza è minore o uguale a 1
+        if (difference <= 1) {
+            this.selectedExercises.push({ exerciseId: event.value, reps: 0, sets: 0 });
+            this.extendedExercises = new Array(this.selectedExercises.length + 1).fill(null);
+        }
+    }
+}
 
   valueOrDash(value: any) {
     return value ? value : '///';
@@ -66,18 +71,15 @@ export class WorkoutPageComponent {
   getTrainingCardExercises(event: any) {
     this._workoutService.getTrainingCardExercises(this.selectedCard).subscribe((exercises) => {
       this.trainingCard = exercises;
-      console.log(this.trainingCard);
     });
   }
 
   onChangeReps(event: any, index: number) {
     this.selectedExercises[index].reps = event.value;
-    console.log(this.selectedExercises);
   }
 
   onChangeSets(event: any, index: number) {
     this.selectedExercises[index].sets = event.value;
-    console.log(this.selectedExercises);
   }
 
   createTrainingCard() {

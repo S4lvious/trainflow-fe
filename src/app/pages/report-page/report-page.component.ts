@@ -8,6 +8,7 @@ import { User } from '../../models/user.model';
 import { ReportResponse } from '../../models/workout.model';
 import { SidebarComponent } from '../../components/sidebar/sidebar.component';
 import { ChartModule } from 'primeng/chart';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
@@ -15,7 +16,7 @@ import { ChartModule } from 'primeng/chart';
   templateUrl: './report-page.component.html',
   styleUrls: ['./report-page.component.scss'],
   standalone: true,
-  imports: [SidebarComponent, ChartModule]
+  imports: [SidebarComponent, ChartModule, CommonModule]
 })
 export class ReportPageComponent implements OnInit {
 
@@ -112,6 +113,15 @@ export class ReportPageComponent implements OnInit {
 
   padZero(value: number): string {
     return value < 10 ? `0${value}` : `${value}`;
+  }
+
+  checkLenght() {
+    if (this.chartData.Object.keys.length > 0) {
+      return true;
+    }  else {
+      return false;
+    }
+
   }
 
 
