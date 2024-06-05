@@ -2,16 +2,16 @@
     <div class="left">
         <tf-sidebar [profilePic]="user.profile_pic" [name]="user.username"></tf-sidebar>
     </div>
-    <div class="right" style="display: flex; justify-content: space-between; align-items: center;">
+    <div class="right">
         <div class="grid mt-2">
             <div class="flex flex-column gap-2 col-12">
                 <h2>Seleziona una scheda o creane una</h2>
             </div>
-            <div class="flex col-12 justify-content-between">
+            <div class="flex col-6">
                 <p-dropdown autoWidth="false" [(ngModel)]="selectedCard" (onChange)="getTrainingCardExercises($event)" [style]="{width: '250px'}" [filter]="true" emptyMessage="Nessuna scheda creata" optionLabel="name" optionValue="value" [options]="possibleTrainingCard"></p-dropdown>
-                <div class="button">
-                    <button pButton type="button" (click)="showDialog = true" label="Crea Scheda" icon="pi pi-plus" class="p-button-quite"></button>
-                </div>
+            </div>
+            <div class="flex gap-2 col-6 justify-content-end align-items-center">
+                <p-button label="Crea Scheda" (click)="showDialog = true" icon="pi pi-plus"></p-button>
             </div>
         </div>
 
