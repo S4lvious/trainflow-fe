@@ -8,7 +8,7 @@ import { map } from 'rxjs';
 })
 export class AuthService {
   constructor(private _http: HttpClient) {}
-  private apiUrl = 'http://localhost:3000'; // Sostituisci con l'URL del tuo server di backend
+  private apiUrl = 'https://trainflow-be.onrender.com'; // Sostituisci con l'URL del tuo server di backend
   
   public login(user: any) {
     return this._http

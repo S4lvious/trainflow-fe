@@ -9,7 +9,7 @@ import { User } from '../models/user.model';
   providedIn: 'root'
 })
 export class UserService {
-  apiUrl = 'http://localhost:3000/users' // inserisci il tuo URL dell'API qui
+  apiUrl = 'https://trainflow-be.onrender.com/users' // inserisci il tuo URL dell'API qui
 
   constructor(private http: HttpClient) { }
 

@@ -9,7 +9,7 @@ export class FoodService {
 
     constructor(private http: HttpClient) { }
 
-    apiUrl = 'http://localhost:3000/food'
+    apiUrl = 'https://trainflow-be.onrender.com/food'
 
 
     public searchFoodByAutoComplete(foodName: string, userId: number) {
