@@ -9,3 +9,22 @@
 
     }
 }
+
+// media query smarthphone
+
+@media only screen and (max-width: 767px) {
+    :host ::ng-deep {
+        .workout-container {
+            .left {
+                display: none;
+            }
+            padding: 20px;
+            .right {
+                margin-left: 0;
+                .exercises {
+                    margin-left: 0;
+                }
+            }
+        }
+    }
+}

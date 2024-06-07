@@ -1,0 +1,30 @@
+.navbar {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: white;
+    border-top: 1px solid #ccc; /* Bordo superiore per distinguere la nav dal contenuto */
+}
+
+.navbar ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: black;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+}
+
+.navbar a i {
+    margin-right: 8px; /* Spazio tra l'icona e il testo */
+}
+
+.navbar a:hover {
+    color: #007BFF; /* Colore di hover per i link */
+}

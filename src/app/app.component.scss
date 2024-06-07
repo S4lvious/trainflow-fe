@@ -1,0 +1,10 @@
+tf-mobile-navbar {
+    display: none;
+}
+
+
+@media only screen and (max-width: 767px) {
+    tf-mobile-navbar {
+        display: block;
+    }
+}

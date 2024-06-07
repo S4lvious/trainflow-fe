@@ -35,3 +35,47 @@
     }
 
 }
+
+
+// media query smarthphone
+
+@media only screen and (max-width: 767px) {
+    :host ::ng-deep {
+        .homepage-container {
+            .left {
+                display: none;
+            }
+            padding: 20px;
+            .right {
+                margin-left: 0;
+                .view-container {
+                    display: flex;
+                    flex-direction: column;
+                    margin-top: 20px;
+                    justify-content: space-between;
+                    tf-card {
+                        cursor: pointer;
+                    }
+                    tf-card.clicked {
+                        background: aliceblue;
+                    }
+                }
+        
+                .exercises {
+                    margin-top: 20px;
+                }
+                .floating-action-button {
+                    position: relative;
+                    height: 200px;
+                    .p-speeddial-quarter-circle {
+                        &.p-speeddial-direction-down-right {
+                            bottom: 0;
+                            right: 0;
+                        }
+                    }
+                }
+            
+            }   
+        }
+    }
+}
