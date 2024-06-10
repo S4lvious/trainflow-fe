@@ -7,7 +7,7 @@ import { map } from 'rxjs';
   providedIn: 'root'
 })
 export class WorkoutService {
-  private apiUrl: string = 'http://localhost:3000/workout';
+  private apiUrl: string = 'https://trainflow-be.onrender.com/workout';
 
     constructor(private http: HttpClient) { }
 
