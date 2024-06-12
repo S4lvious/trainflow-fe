@@ -1,19 +1,28 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { jwtDecode } from 'jwt-decode';
-import { map } from 'rxjs';
+import { MessageService } from 'primeng/api';
+import { map, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private _http: HttpClient) {}
+  constructor(private _http: HttpClient, private messageService: MessageService) {}
   private apiUrl = 'https://trainflow-be.onrender.com'; // Sostituisci con l'URL del tuo server di backend
   
   public login(user: any) {
     return this._http
       .post(`${this.apiUrl}/auth/login`, user)
       .pipe(
+        tap({
+          next: (response) => {
+            return response;
+          },
+          error: (error) => {
+            this.messageService.add({severity:'error', summary:'Error', detail: error.error.message });
+          },
+        }),
         map((response: any) => {
           if (response && response.token) {
             localStorage.setItem(

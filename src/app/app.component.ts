@@ -4,12 +4,13 @@ import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { MobileNavbarComponent } from './components/mobile-navbar/mobile-navbar.component';
+import { ToastModule } from 'primeng/toast';
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CommonModule, MobileNavbarComponent],
+  imports: [RouterOutlet, CommonModule, MobileNavbarComponent, ToastModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
