@@ -12,6 +12,10 @@
     }],
     "theme_color": "#ffffff",
     "background_color": "#ffffff",
-    "display": "standalone"
+    "display": "standalone",
+    "splash_screen": {
+      "192x192": "/android-chrome-192x192.png",
+      "512x512": "/android-chrome-512x512.png"
+    }
   }
   
