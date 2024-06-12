@@ -28,6 +28,7 @@ export class SidebarComponent implements OnInit {
     logout() {
         localStorage.removeItem('token');
         localStorage.removeItem('currentUser');
+        window.location.reload();
     }
 
 

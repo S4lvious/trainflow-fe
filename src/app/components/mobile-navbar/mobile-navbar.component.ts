@@ -10,4 +10,15 @@ import { RouterModule } from '@angular/router';
 })
 export class MobileNavbarComponent {
     // Add your component logic here
+
+    constructor() { }
+
+    logout() {
+        localStorage.removeItem('token');
+        localStorage.removeItem('currentUser');
+        window.location.reload();
+    }
+
+
 }
+
