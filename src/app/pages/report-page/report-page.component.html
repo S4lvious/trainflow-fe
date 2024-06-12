@@ -6,3 +6,7 @@
         <p-chart type="line" [data]="chartData" [options]="chartOptions"/>
     </div>
 </div>
+
+<div class="loading-overlay" *ngIf="loading">
+    <div class="loader"></div>
+  </div>

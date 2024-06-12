@@ -28,11 +28,14 @@ export class ReportPageComponent implements OnInit {
   public user: User = {} as User;
   public chartData: any;
   public chartOptions: any;
+  public loading = false;
 
 
   ngOnInit(): void {
     this.user = this.userService.getCurrentUser()
+    this.loading = true;
     this.workoutService.getUserProgress(this.user.id).subscribe(data => {
+      this.loading = false;
       const datasets = [];
       const dates = [];
 
