@@ -21,7 +21,7 @@ export class FoodService {
                     return response;
                 },
                 error: (error) => {
-                    this.messageService.add({severity:'error', summary:'Error', detail: error.error.message });
+                    this.messageService.add({severity:'error', summary:'Error', detail: error.error.message ?? error.message });
                 }
             })
         )
@@ -34,7 +34,7 @@ export class FoodService {
                     return response;
                 },
                 error: (error) => {
-                    this.messageService.add({severity:'error', summary:'Error', detail: error.error.message });
+                    this.messageService.add({severity:'error', summary:'Error', detail: error.error.message ?? error.message });
                 }
             })
         )
@@ -47,7 +47,7 @@ export class FoodService {
                     this.messageService.add({severity: 'success', summary:'Confermato!', detail: 'Cibo aggiunto con successo!' });
                 },
                 error: (error) => {
-                    this.messageService.add({severity:'error', summary:'Error', detail: error.error.message });
+                    this.messageService.add({severity:'error', summary:'Error', detail: error.error.message ?? error.message });
                 }
             })
         )
@@ -60,7 +60,7 @@ export class FoodService {
                     return response;
                 },
                 error: (error) => {
-                    this.messageService.add({severity:'error', summary:'Error', detail: error.error.message });
+                    this.messageService.add({severity:'error', summary:'Error', detail: error.error.message ?? error.message });
                 }
             })
         )
@@ -73,7 +73,7 @@ export class FoodService {
                     this.messageService.add({severity: 'success', summary:'Confermato!', detail: 'Cibo eliminato con successo!' });
                 },
                 error: (error) => {
-                    this.messageService.add({severity:'error', summary:'Error', detail: error.error.message });
+                    this.messageService.add({severity:'error', summary:'Error', detail: error.error.message ?? error.message });
                 }
             })
         )

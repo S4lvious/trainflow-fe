@@ -14,7 +14,6 @@ import { MessageService } from 'primeng/api';
   imports: [RouterOutlet, CommonModule, MobileNavbarComponent, ToastModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
-  providers: [MessageService]
 })
 export class AppComponent implements OnInit {
   title = 'backoffice-support';

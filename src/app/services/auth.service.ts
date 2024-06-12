@@ -20,7 +20,7 @@ export class AuthService {
             return response;
           },
           error: (error) => {
-            this.messageService.add({severity:'error', summary:'Error', detail: error.error.message });
+            this.messageService.add({severity:'error', summary:'Error', detail: error.error.message ?? error.message });
           },
         }),
         map((response: any) => {

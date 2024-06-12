@@ -19,7 +19,7 @@ export class WorkoutService {
                     return response;
                 },
                 error: (error) => {
-                    this.messageService.add({severity:'error', summary:'Error', detail: error.error.message });
+                    this.messageService.add({severity:'error', summary:'Error', detail: error.error.message ?? error.message });
                 }
             })
         )
@@ -32,7 +32,7 @@ export class WorkoutService {
                     return response;
                 },
                 error: (error) => {
-                    this.messageService.add({severity:'error', summary:'Error', detail: error.error.message });
+                    this.messageService.add({severity:'error', summary:'Error', detail: error.error.message ?? error.message });
                 }
             }),
         )
@@ -45,7 +45,7 @@ export class WorkoutService {
                     this.messageService.add({severity: 'success', summary:'Confermato!', detail: 'Esercizio aggiunto con successo!' });
                 },
                 error: (error) => {
-                    this.messageService.add({severity:'error', summary:'Error', detail: error.error.message });
+                    this.messageService.add({severity:'error', summary:'Error', detail: error.error.message ?? error.message });
                 }
             })
         )
@@ -58,7 +58,7 @@ export class WorkoutService {
                     return response;
                 },
                 error: (error) => {
-                    this.messageService.add({severity:'error', summary:'Error', detail: error.error.message });
+                    this.messageService.add({severity:'error', summary:'Error', detail: error.error.message ?? error.message });
                 }
             })
         )
@@ -71,7 +71,7 @@ export class WorkoutService {
                     this.messageService.add({severity: 'success', summary:'Confermato!', detail: 'Scheda di allenamento creata con successo!' });
                 },
                 error: (error) => {
-                    this.messageService.add({severity:'error', summary:'Error', detail: error.error.message });
+                    this.messageService.add({severity:'error', summary:'Error', detail: error.error.message ?? error.message });
                 }
             })
         )
@@ -84,7 +84,7 @@ export class WorkoutService {
                     return response;
                 },
                 error: (error) => {
-                    this.messageService.add({severity:'error', summary:'Error', detail: error.error.message });
+                    this.messageService.add({severity:'error', summary:'Error', detail: error.error.message ?? error.message });
                 }
             }),
             map((cards) => {
@@ -105,7 +105,7 @@ export class WorkoutService {
                     return response;
                 },
                 error: (error) => {
-                    this.messageService.add({severity:'error', summary:'Error', detail: error.error.message });
+                    this.messageService.add({severity:'error', summary:'Error', detail: error.error.message ?? error.message });
                 }
             })
         )
@@ -118,7 +118,7 @@ export class WorkoutService {
                     this.messageService.add({severity: 'success', summary:'Confermato!', detail: 'Esercizio eliminato con successo!' });
                 },
                 error: (error) => {
-                    this.messageService.add({severity:'error', summary:'Error', detail: error.error.message });
+                    this.messageService.add({severity:'error', summary:'Error', detail: error.error.message ?? error.message });
                 }
             })
         )

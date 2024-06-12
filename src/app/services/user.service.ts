@@ -28,7 +28,7 @@ export class UserService {
           return response;
         },
         error: (error) => {
-          this.messageService.add({severity:'error', summary:'Error', detail: error.error.message });
+          this.messageService.add({severity:'error', summary:'Error', detail: error.error.message ?? error.message });
         }
       }),
       map((users: any[]) => {
@@ -52,7 +52,7 @@ export class UserService {
           return response;
         },
         error: (error) => {
-          this.messageService.add({severity:'error', summary:'Error', detail: error.error.message });
+          this.messageService.add({severity:'error', summary:'Error', detail: error.error.message ?? error.message });
         }
       })
     );
@@ -65,7 +65,7 @@ export class UserService {
           return response;
         },
         error: (error) => {
-          this.messageService.add({severity:'error', summary:'Error', detail: error.error.message });
+          this.messageService.add({severity:'error', summary:'Error', detail: error.error.message ?? error.message });
         }
       })
     );
@@ -78,7 +78,7 @@ export class UserService {
           return response;
         },
         error: (error) => {
-          this.messageService.add({severity:'error', summary:'Error', detail: error.error.message });
+          this.messageService.add({severity:'error', summary:'Error', detail: error.error.message ?? error.message });
         }
       })
     );
@@ -96,7 +96,7 @@ export class UserService {
           return response;
         },
         error: (error) => {
-          this.messageService.add({severity:'error', summary:'Error', detail: error.error.message });
+          this.messageService.add({severity:'error', summary:'Error', detail: error.error.message ?? error.message });
         }
       })
     );
@@ -109,7 +109,7 @@ export class UserService {
           return response;
         },
         error: (error) => {
-          this.messageService.add({severity:'error', summary:'Error', detail: error.error.message });
+          this.messageService.add({severity:'error', summary:'Error', detail: error.error.message ?? error.message });
         }
       })
     );
