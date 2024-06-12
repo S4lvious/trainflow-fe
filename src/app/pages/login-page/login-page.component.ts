@@ -3,6 +3,8 @@ import { GoogleButtonComponent } from '../../atoms/google-button/gogole-button.c
 import { GoogleLoginProvider, GoogleSigninButtonModule, SocialAuthService } from '@abacritt/angularx-social-login';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @Component({
     selector: 'app-login-page',
@@ -11,7 +13,9 @@ import { Router } from '@angular/router';
     standalone: true,
     imports: [
         GoogleButtonComponent,
-        GoogleSigninButtonModule
+        GoogleSigninButtonModule,
+        CommonModule,
+        ProgressSpinnerModule
     ]
 
 })
@@ -23,11 +27,20 @@ export class LoginPageComponent implements OnInit {
        private router: Router
     ) { }
 
+    public loading = false;
+
     ngOnInit(): void {
         this.socialAuthService.authState.subscribe((user) => {
-            this.authService.login(user).subscribe((response) => {
-                if (response && response.token) {
-                    this.router.navigate(['']);
+            this.loading = true;
+            this.authService.login(user).subscribe({
+                next: (response) => {
+                    this.loading = false;
+                    if (response && response.token) {
+                        this.router.navigate(['']);
+                    }
+                },
+                error: () => {
+                    this.loading = false;
                 }
             });
         });
