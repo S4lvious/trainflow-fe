@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { SidebarComponent } from '../../components/sidebar/sidebar.component';
 import { ButtonModule } from 'primeng/button';
@@ -45,6 +45,8 @@ export class FoodPageComponent implements OnInit {
     public foods: any[] = [];
     public showDialog: boolean = false;
     public selectedFood: number = 0;
+    public dialogWidth: string = '40vw';
+    public dialogHeight: string = '60vh';
     public filteredFoods: any[] = [];
     public grams: number = 100;
     public qty: number = 1;
@@ -63,12 +65,30 @@ export class FoodPageComponent implements OnInit {
     public totalProteins: number = 0;
     public totalCarbs: number = 0;
     public totalFats: number = 0;
+    public mediaQueryList: MediaQueryList = {} as MediaQueryList;
+    public isMobile: boolean = false;
+
 
 
     ngOnInit(): void {  
         this.user = this.userService.getCurrentUser();
         this.onSelectDate(new Date());
+        this.onResize();
+    
     }
+
+@HostListener('window:resize', ['$event'])
+    onResize() {
+        this.isMobile = window.innerWidth <= 767;
+        if (this.isMobile) {
+            this.dialogWidth = '100vw';
+            this.dialogHeight = '100vh';
+        } else {
+            this.dialogWidth = '40vw';
+            this.dialogHeight = '60vh';
+        }
+    }
+
 
     calculateCaloriesNotGrams() {
         this.displayFoodCalories = this.selectedFoodCalories * this.qty;

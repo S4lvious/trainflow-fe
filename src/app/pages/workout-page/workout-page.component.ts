@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { SidebarComponent } from '../../components/sidebar/sidebar.component';
 import { User } from '../../models/user.model';
 import { UserService } from '../../services/user.service';
@@ -39,8 +39,13 @@ export class WorkoutPageComponent {
     public possibleTrainingCard: any[] = [];
     public selectedCard: number = 0;
     public trainingCard: TrainingCardExercise[] = [];
+    public isMobile: boolean = false;
+    public dialogWidth: string = '60vw';
+    public dialogHeight: string = '60vh';
+
 
   ngOnInit() {
+    this.onResize();
     this.user = this._userService.getCurrentUser();
     this._workoutService.getTrainingCardsAsSelectItem(this.user.id).subscribe((cards) => {
       this.possibleTrainingCard = cards;
@@ -48,6 +53,18 @@ export class WorkoutPageComponent {
     this._workoutService.getAllExercisesAsSelectItem().subscribe((exercises) => {
       this.exercises = exercises;
     });
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+      this.isMobile = window.innerWidth <= 767;
+      if (this.isMobile) {
+          this.dialogWidth = '100vw';
+          this.dialogHeight = '100vh';
+      } else {
+          this.dialogWidth = '60vw';
+          this.dialogHeight = '60vh';
+      }
   }
 
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/user.model';
 import { SidebarComponent } from '../../components/sidebar/sidebar.component';
@@ -47,6 +47,10 @@ export class HomePageComponent implements OnInit {
         { label: 'Oggi', value: getFormattedDate(0), clicked: false },
         { label: 'Domani', value: getFormattedDate(1), clicked: false }
     ];
+    public isMobile: boolean = false;
+    public dialogWidth: string = '40vw';
+    public dialogHeight: string = '60vh';
+
 
     constructor(
         private userService: UserService,
@@ -61,10 +65,21 @@ export class HomePageComponent implements OnInit {
          this.workoutService.getAllExercisesAsSelectItem().subscribe((exercises) => {
               this.exercisesList = exercises;
          });
-
+         this.onResize()
     }
 
-    
+    @HostListener('window:resize', ['$event'])
+    onResize() {
+        this.isMobile = window.innerWidth <= 767;
+        if (this.isMobile) {
+            this.dialogWidth = '100vw';
+            this.dialogHeight = '100vh';
+        } else {
+            this.dialogWidth = '40vw';
+            this.dialogHeight = '60vh';
+        }
+    }
+
 
     toggleVisibility() {
         this.sidebarVisible = true;
