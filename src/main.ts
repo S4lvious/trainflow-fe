@@ -11,12 +11,14 @@ import {
   SocialLoginModule,
   GoogleLoginProvider
 } from '@abacritt/angularx-social-login';
+import { MessageService } from 'primeng/api';
 
 bootstrapApplication(AppComponent, {
   providers: [
     provideHttpClient(withInterceptors([authenticationInterceptor])),
     importProvidersFrom(RouterModule.forRoot(routes)),
     importProvidersFrom(BrowserAnimationsModule), 
+    MessageService,
     {
       provide: 'SocialAuthServiceConfig',
       useValue: {

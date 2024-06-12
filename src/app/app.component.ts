@@ -5,6 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { MobileNavbarComponent } from './components/mobile-navbar/mobile-navbar.component';
 import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 
 @Component({
@@ -12,15 +13,16 @@ import { ToastModule } from 'primeng/toast';
   standalone: true,
   imports: [RouterOutlet, CommonModule, MobileNavbarComponent, ToastModule],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
+  providers: [MessageService]
 })
 export class AppComponent implements OnInit {
   title = 'backoffice-support';
   public isLoginPage: boolean = false;
 
   constructor(
-    private route: Router,
-  ) {}
+    private route: Router
+    ) {}
 
   ngOnInit() {
     this.route.events.subscribe((event) => {
