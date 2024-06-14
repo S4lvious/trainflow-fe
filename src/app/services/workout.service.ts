@@ -125,7 +125,7 @@ export class WorkoutService {
     }
 
     public getAllTrainCardsExercise (userId: number) {
-        return this.http.get<any[]>(this.apiUrl + `/getAllExercisesByTrainingCard/:userId/${userId}`).pipe(
+        return this.http.get<any[]>(this.apiUrl + `/getAllExercisesByTrainingCard/${userId}`).pipe(
             tap({
                 next: (response) => {
                     return response;
