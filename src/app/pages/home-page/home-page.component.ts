@@ -20,6 +20,7 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 import { CalendarModule } from 'primeng/calendar';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { InputSwitchModule } from 'primeng/inputswitch';
 
 
 @Component({
@@ -27,7 +28,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     templateUrl: './home-page.component.html',
     styleUrls: ['./home-page.component.scss'],
     standalone: true,
-    imports: [SidebarComponent, ButtonModule, CardModule, CommonModule, TFCardComponent, DataViewModule, SpeedDialModule, DialogModule, DropdownModule, FormsModule, InputNumberModule, FloatLabelModule, CalendarModule, ConfirmDialogModule],
+    imports: [SidebarComponent, InputSwitchModule, ButtonModule, CardModule, CommonModule, TFCardComponent, DataViewModule, SpeedDialModule, DialogModule, DropdownModule, FormsModule, InputNumberModule, FloatLabelModule, CalendarModule, ConfirmDialogModule],
     providers: [ConfirmationService, MessageService]
 })
 export class HomePageComponent implements OnInit {
@@ -42,6 +43,7 @@ export class HomePageComponent implements OnInit {
     public reps: number = 0;
     public sets: number = 0;
     public kg: number = 0;
+    public trainCard: boolean = false;
     public possibleViews: Tab[] = [
         { label: 'Ieri', value: getFormattedDate(-1), clicked: false },
         { label: 'Oggi', value: getFormattedDate(0), clicked: false },
@@ -83,6 +85,18 @@ export class HomePageComponent implements OnInit {
 
     toggleVisibility() {
         this.sidebarVisible = true;
+    }
+
+    toggleExercise(event: any) {
+        if (event.value) {
+            this.workoutService.getAllTrainCardsExercise(this.user.id).subscribe((exercises) => {
+                this.exercisesList = exercises;
+            });
+        } else {
+            this.workoutService.getAllExercisesAsSelectItem().subscribe((exercises) => {
+                this.exercisesList = exercises;
+           });
+          }
     }
 
     onCardClick(card: Tab) {

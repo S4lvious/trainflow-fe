@@ -124,5 +124,18 @@ export class WorkoutService {
         )
     }
 
+    public getAllTrainCardsExercise (userId: number) {
+        return this.http.get<any[]>(this.apiUrl + `/getAllExercisesByTrainingCard/:userId/${userId}`).pipe(
+            tap({
+                next: (response) => {
+                    return response;
+                },
+                error: (error) => {
+                    this.messageService.add({severity:'error', summary:'Error', detail: error.error.message ?? error.message });
+                }
+            })
+        )
+    }
+
 
 }

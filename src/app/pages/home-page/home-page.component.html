@@ -77,6 +77,16 @@
                 </p-dropdown>
             </div>
             <div class="flex flex-column gap-2 col-12">
+                <label for="check">Mostra esercizi da Traincards</label>
+                <p-inputSwitch
+                id="check"
+                [ngModel]="trainCard"
+                (ngModelChange)="toggleExercise($event)"
+                >
+                </p-inputSwitch>
+            </div>
+
+            <div class="flex flex-column gap-2 col-12">
                 <label for="sets">Numero di serie</label>
                 <p-inputNumber id="sets" [(ngModel)]="sets" placeholder="Numero di Serie"></p-inputNumber>
             </div>
