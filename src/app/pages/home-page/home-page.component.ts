@@ -88,7 +88,7 @@ export class HomePageComponent implements OnInit {
     }
 
     toggleExercise(event: any) {
-        if (event.value) {
+        if (event) {
             this.workoutService.getAllTrainCardsExercise(this.user.id).subscribe((exercises) => {
                 this.exercisesList = exercises;
             });
